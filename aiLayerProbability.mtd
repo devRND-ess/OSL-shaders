@@ -1,0 +1,703 @@
+# aiLayerProbability                   0x00070007 
+
+[node aiLayerProbability]
+    maya.name               STRING	"aiLayerProbability"
+    maya.id                 INT      0x00070007
+    maya.classification     STRING  "shader/surface"
+    maya.output_name        STRING  "outColor"
+    maya.output_shortname   STRING  "out"
+
+    [attr randInput]
+        desc                STRING	"Connect aiUtility(uniformId/objectId) to aiRandom with greyScale output and plug in here"
+        maya.name           STRING  "randInput"
+	
+	[attr Barycentric]
+        desc                STRING	"check to wether or not you want to use barycentric coordinates (for IGS hairs)"
+        maya.name           STRING  "Barycentric"
+		
+	[attr BarycentricU]
+        desc                STRING	"plug in Barycentric U coordinate here from aiUtility"
+        maya.name           STRING  "BarycentricU"
+	
+	[attr BarycentricV]
+        desc                STRING	"plug in Barycentric V coordinate here from aiUtility"
+        maya.name           STRING  "BarycentricV"
+	
+	[attr outputMelanin_BC]
+        desc                STRING	"check to use melanin for base color"
+        maya.name           STRING  "outputMelanin_BC"
+		
+	[attr melaninRoot_BC]
+		desc				STRING	"melanin for root of base color"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"melaninRoot_BC"
+		
+	[attr melaninTip_BC]
+		desc				STRING	"melanin for tip of base color"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"melaninTip_BC"
+		
+	[attr rootColor_BC]
+		desc				STRING	"custom color for root of base color"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"rootColor_BC"
+		
+	[attr tipColor_BC]
+		desc				STRING	"custom color for tip of base color"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"tipColor_BC"
+		
+	[attr pos_BC]
+		desc				STRING	"probability amount"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"pos_BC"
+		
+	[attr soft_BC]
+		desc				STRING	"softness amount"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.01
+		maya.name			STRING	"soft_BC"
+	
+	[attr posDir_BC]
+		desc				STRING	"direction of color (root to tip or tip to root"
+		maya.name			STRING	"posDir_BC"
+	
+	[attr Layer1]
+        desc                STRING	"check to enable layer 1"
+        maya.name           STRING  "Layer 1"
+	
+	[attr outputMelanin_L1]
+        desc                STRING	"check to use melanin for layer1"
+        maya.name           STRING  "outputMelanin_L1"
+	
+	[attr melaninRoot_L1]
+		desc				STRING	"melanin for root of layer1"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"melaninRoot_L1"
+		
+	[attr melaninTip_L1]
+		desc				STRING	"melanin for tip of layer1"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"melaninTip_L1"
+		
+	[attr rootColor_L1]
+		desc				STRING	"custom color for root of layer1"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"rootColor_L1"
+		
+	[attr tipColor_L1]
+		desc				STRING	"custom color for tip of layer1"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"tipColor_L1"
+		
+	[attr probability_L1]
+		desc				STRING	"probability amount for layer1"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"probability_L1"
+		
+	[attr pos_L1]
+		desc				STRING	"position of color for layer1"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"pos_L1"
+		
+	[attr soft_L1]
+		desc				STRING	"softness amount for layer1"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.01
+		maya.name			STRING	"soft_L1"
+	
+	[attr posDir_L1]
+		desc				STRING	"direction of color (root to tip or tip to root) for layer1"
+		maya.name			STRING	"posDir_L1"
+		
+	
+	[attr Layer2]
+        desc                STRING	"check to enable layer2"
+        maya.name           STRING  "Layer 2"
+	
+	[attr outputMelanin_L2]
+        desc                STRING	"check to use melanin for layer2"
+        maya.name           STRING  "outputMelanin_L2"
+	
+	[attr melaninRoot_L2]
+		desc				STRING	"melanin for root of layer2"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"melaninRoot_L2"
+		
+	[attr melaninTip_L2]
+		desc				STRING	"melanin for tip of layer2"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"melaninTip_L2"
+		
+	[attr rootColor_L2]
+		desc				STRING	"custom color for root of layer2"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"rootColor_L2"
+		
+	[attr tipColor_L2]
+		desc				STRING	"custom color for tip of layer2"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"tipColor_L2"
+		
+	[attr probability_L2]
+		desc				STRING	"probability amount for layer2"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"probability_L2"	
+	[attr pos_L2]
+		desc				STRING	"position of color for layer2"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"pos_L2"
+		
+	[attr soft_L2]
+		desc				STRING	"softness amount for layer2"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.01
+		maya.name			STRING	"soft_L2"
+	
+	[attr posDir_L2]
+		desc				STRING	"direction of color (root to tip or tip to root) for layer2"
+		maya.name			STRING	"posDir_L2"
+		
+		
+	[attr Layer3]
+        desc                STRING	"check to enable layer3"
+        maya.name           STRING  "Layer 3"
+	
+	[attr outputMelanin_L3]
+        desc                STRING	"check to use melanin for layer3"
+        maya.name           STRING  "outputMelanin_L3"
+	
+	[attr melaninRoot_L3]
+		desc				STRING	"melanin for root of layer3"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"melaninRoot_L3"
+		
+	[attr melaninTip_L3]
+		desc				STRING	"melanin for tip of layer3"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"melaninTip_L3"
+		
+	[attr rootColor_L3]
+		desc				STRING	"custom color for root of layer3"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"rootColor_L3"
+		
+	[attr tipColor_L3]
+		desc				STRING	"custom color for tip of layer3"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"tipColor_L3"
+		
+	[attr probability_L3]
+		desc				STRING	"probability amount for layer3"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"probability_L3"	
+	[attr pos_L3]
+		desc				STRING	"position of color for layer3"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"pos_L3"
+		
+	[attr soft_L3]
+		desc				STRING	"softness amount for layer3"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.01
+		maya.name			STRING	"soft_L3"
+	
+	[attr posDir_L3]
+		desc				STRING	"direction of color (root to tip or tip to root) for layer3"
+		maya.name			STRING	"posDir_L3"
+		
+	
+	[attr Layer4]
+        desc                STRING	"check to enable layer4"
+        maya.name           STRING  "Layer 4"
+	
+	[attr outputMelanin_L4]
+        desc                STRING	"check to use melanin for layer4"
+        maya.name           STRING  "outputMelanin_L4"
+	
+	[attr melaninRoot_L4]
+		desc				STRING	"melanin for root of layer4"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"melaninRoot_L4"
+		
+	[attr melaninTip_L4]
+		desc				STRING	"melanin for tip of layer4"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"melaninTip_L4"
+		
+	[attr rootColor_L4]
+		desc				STRING	"custom color for root of layer4"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"rootColor_L4"
+		
+	[attr tipColor_L4]
+		desc				STRING	"custom color for tip of layer4"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"tipColor_L4"
+		
+	[attr probability_L4]
+		desc				STRING	"probability amount for layer4"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"probability_L4"	
+	[attr pos_L4]
+		desc				STRING	"position of color for layer4"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"pos_L4"
+		
+	[attr soft_L4]
+		desc				STRING	"softness amount for layer4"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.01
+		maya.name			STRING	"soft_L4"
+	
+	[attr posDir_L4]
+		desc				STRING	"direction of color (root to tip or tip to root) for layer4"
+		maya.name			STRING	"posDir_L4"
+		
+	
+	[attr Layer5]
+        desc                STRING	"check to enable layer5"
+        maya.name           STRING  "Layer 5"
+	
+	[attr outputMelanin_L5]
+        desc                STRING	"check to use melanin for layer5"
+        maya.name           STRING  "outputMelanin_L5"
+	
+	[attr melaninRoot_L5]
+		desc				STRING	"melanin for root of layer5"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"melaninRoot_L5"
+		
+	[attr melaninTip_L5]
+		desc				STRING	"melanin for tip of layer5"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"melaninTip_L5"
+		
+	[attr rootColor_L5]
+		desc				STRING	"custom color for root of layer5"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"rootColor_L5"
+		
+	[attr tipColor_L5]
+		desc				STRING	"custom color for tip of layer5"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"tipColor_L5"
+		
+	[attr probability_L5]
+		desc				STRING	"probability amount for layer5"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"probability_L5"	
+	[attr pos_L5]
+		desc				STRING	"position of color for layer5"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"pos_L5"
+		
+	[attr soft_L5]
+		desc				STRING	"softness amount for layer5"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.01
+		maya.name			STRING	"soft_L5"
+	
+	[attr posDir_L5]
+		desc				STRING	"direction of color (root to tip or tip to root) for layer5"
+		maya.name			STRING	"posDir_L5"	
+		
+		
+
+	[attr Layer6]
+        desc                STRING	"check to enable layer6"
+        maya.name           STRING  "Layer 6"
+	
+	[attr outputMelanin_L6]
+        desc                STRING	"check to use melanin for layer6"
+        maya.name           STRING  "outputMelanin_L6"
+	
+	[attr melaninRoot_L6]
+		desc				STRING	"melanin for root of layer6"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"melaninRoot_L6"
+		
+	[attr melaninTip_L6]
+		desc				STRING	"melanin for tip of layer6"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"melaninTip_L6"
+		
+	[attr rootColor_L6]
+		desc				STRING	"custom color for root of layer6"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"rootColor_L6"
+		
+	[attr tipColor_L6]
+		desc				STRING	"custom color for tip of layer6"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"tipColor_L6"
+		
+	[attr probability_L6]
+		desc				STRING	"probability amount for layer6"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"probability_L6"	
+	[attr pos_L6]
+		desc				STRING	"position of color for layer6"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"pos_L6"
+		
+	[attr soft_L6]
+		desc				STRING	"softness amount for layer6"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.01
+		maya.name			STRING	"soft_L6"
+	
+	[attr posDir_L6]
+		desc				STRING	"direction of color (root to tip or tip to root) for layer6"
+		maya.name			STRING	"posDir_L6"
+		
+	
+	[attr Layer7]
+        desc                STRING	"check to enable layer7"
+        maya.name           STRING  "Layer 7"
+	
+	[attr outputMelanin_L7]
+        desc                STRING	"check to use melanin for layer7"
+        maya.name           STRING  "outputMelanin_L7"
+	
+	[attr melaninRoot_L7]
+		desc				STRING	"melanin for root of layer7"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"melaninRoot_L7"
+		
+	[attr melaninTip_L7]
+		desc				STRING	"melanin for tip of layer7"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"melaninTip_L7"
+		
+	[attr rootColor_L7]
+		desc				STRING	"custom color for root of layer7"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"rootColor_L7"
+		
+	[attr tipColor_L7]
+		desc				STRING	"custom color for tip of layer7"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"tipColor_L7"
+		
+	[attr probability_L7]
+		desc				STRING	"probability amount for layer7"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"probability_L7"	
+	[attr pos_L7]
+		desc				STRING	"position of color for layer7"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"pos_L7"
+		
+	[attr soft_L7]
+		desc				STRING	"softness amount for layer7"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.01
+		maya.name			STRING	"soft_L7"
+	
+	[attr posDir_L7]
+		desc				STRING	"direction of color (root to tip or tip to root) for layer7"
+		maya.name			STRING	"posDir_L7"
+		
+		
+	[attr Layer8]
+        desc                STRING	"check to enable layer8"
+        maya.name           STRING  "Layer 8"
+	
+	[attr outputMelanin_L8]
+        desc                STRING	"check to use melanin for layer8"
+        maya.name           STRING  "outputMelanin_L8"
+	
+	[attr melaninRoot_L8]
+		desc				STRING	"melanin for root of layer8"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"melaninRoot_L8"
+		
+	[attr melaninTip_L8]
+		desc				STRING	"melanin for tip of layer8"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"melaninTip_L8"
+		
+	[attr rootColor_L8]
+		desc				STRING	"custom color for root of layer8"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"rootColor_L8"
+		
+	[attr tipColor_L8]
+		desc				STRING	"custom color for tip of layer8"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"tipColor_L8"
+		
+	[attr probability_L8]
+		desc				STRING	"probability amount for layer8"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"probability_L8"	
+	[attr pos_L8]
+		desc				STRING	"position of color for layer8"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"pos_L8"
+		
+	[attr soft_L8]
+		desc				STRING	"softness amount for layer8"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.01
+		maya.name			STRING	"soft_L8"
+	
+	[attr posDir_L8]
+		desc				STRING	"direction of color (root to tip or tip to root) for layer8"
+		maya.name			STRING	"posDir_L8"
+		
+		
+	[attr Layer9]
+        desc                STRING	"check to enable layer9"
+        maya.name           STRING  "Layer 9"
+	
+	[attr outputMelanin_L9]
+        desc                STRING	"check to use melanin for layer9"
+        maya.name           STRING  "outputMelanin_L9"
+	
+	[attr melaninRoot_L9]
+		desc				STRING	"melanin for root of layer9"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"melaninRoot_L9"
+		
+	[attr melaninTip_L9]
+		desc				STRING	"melanin for tip of layer9"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"melaninTip_L9"
+		
+	[attr rootColor_L9]
+		desc				STRING	"custom color for root of layer9"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"rootColor_L9"
+		
+	[attr tipColor_L9]
+		desc				STRING	"custom color for tip of layer9"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"tipColor_L9"
+		
+	[attr probability_L9]
+		desc				STRING	"probability amount for layer9"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"probability_L9"	
+	[attr pos_L9]
+		desc				STRING	"position of color for layer9"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"pos_L9"
+		
+	[attr soft_L9]
+		desc				STRING	"softness amount for layer9"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.01
+		maya.name			STRING	"soft_L9"
+	
+	[attr posDir_L9]
+		desc				STRING	"direction of color (root to tip or tip to root) for layer9"
+		maya.name			STRING	"posDir_L9"
+		
+		
+	[attr Layer10]
+        desc                STRING	"check to enable layer10"
+        maya.name           STRING  "Layer 10"
+	
+	[attr outputMelanin_L10]
+        desc                STRING	"check to use melanin for layer10"
+        maya.name           STRING  "outputMelanin_L10"
+	
+	[attr melaninRoot_L10]
+		desc				STRING	"melanin for root of layer10"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"melaninRoot_L10"
+		
+	[attr melaninTip_L10]
+		desc				STRING	"melanin for tip of layer10"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"melaninTip_L10"
+		
+	[attr rootColor_L10]
+		desc				STRING	"custom color for root of layer10"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.25
+		maya.name			STRING	"rootColor_L10"
+		
+	[attr tipColor_L10]
+		desc				STRING	"custom color for tip of layer10"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.75
+		maya.name			STRING	"tipColor_L10"
+		
+	[attr probability_L10]
+		desc				STRING	"probability amount for layer10"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"probability_L10"	
+
+	[attr pos_L10]
+		desc				STRING	"position of color for layer10"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.5
+		maya.name			STRING	"pos_L10"
+
+	[attr soft_L10]
+		desc				STRING	"softness amount for layer10"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.01
+		maya.name			STRING	"soft_L10"
+
+	[attr posDir_L10]
+		desc				STRING	"direction of color (root to tip or tip to root) for layer10"
+		maya.name			STRING	"posDir_L10"
+		
+
+	[attr BarycentricU]
+		desc				STRING	"Barycentric U coordinate"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.0
+		maya.name			STRING	"BarycentricU"
+
+	[attr BarycentricV]
+		desc				STRING	"Barycentric V coordinate"
+		min					FLOAT	0
+		max					FLOAT	1
+		default				FLOAT	0.0
+		maya.name			STRING	"BarycentricV"
+		
+	
