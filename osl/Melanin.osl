@@ -1,0 +1,15 @@
+//melanin output
+shader Melanin
+(
+	float melanin = 0.25 [[string page = "melanin"]],
+	float melaninMix = 0.7 [[string page = "melanin"]],
+	output color result = 0.0
+)
+{
+	color absP = color(0.187, 0.4, 1.05);
+	color absE = color(0.419, 0.697, 1.37);
+	float m = max(pow(melanin, 2.0)*33.0, 1.0e-2);
+	color hairColor = exp(m * -(melaninMix*absE+(1-melaninMix)*absP));
+	result = hairColor;
+	
+}
