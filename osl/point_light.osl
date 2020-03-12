@@ -1,0 +1,24 @@
+shader temp
+(
+    vector light_dir = vector(0.0),
+    float intensity = 1.0,
+    output color out = color(1,0,1)
+)
+{
+    float light_dist = abs(length(light_dir));
+    float NdotL = (intensity*dot(N, normalize(light_dir-P))/(light_dist*light_dist));
+
+    float yax = (P[0]*cos(radians(90))) + P[1]*sin(radians(90));
+    float yay = P[1];
+    float yaz = (-P[0]*sin(radians(90))) + P[1]*cos(radians(90));
+    point Prot = point(yax, yay, yaz);
+
+    float zax = Prot[0];
+    float zay = (Prot[1]*cos(radians(90))) - Prot[2]*sin(radians(90));
+    float zaz = (Prot[1]*sin(radians(90))) + P[2]*cos(radians(90));
+
+    point Prot_f = point(zax, zay, zaz);
+    matrix m = matrix (1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 12.0, -0.155, 1);
+    point PT = transform(m, P);
+    out = NdotL;
+}
