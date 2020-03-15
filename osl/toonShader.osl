@@ -1,0 +1,104 @@
+vector toonShader(vector theta)
+{
+    vector i_c = vector(0.0, 0.0, -1.0);
+    //---------around x axis---------------------------
+    float rot_xX = i_c[0];
+    float rot_xY = i_c[1]*cos(radians(theta[0])) - i_c[2]*sin(radians(theta[0]));
+    float rot_xZ = i_c[1]*sin(radians(theta[0])) + i_c[2]*cos(radians(theta[0]));
+    //--------------------------------------------------
+
+    //---------around y axis---------------------------
+    float rot_yX = rot_xZ*sin(radians(theta[1])) + rot_xX*cos(radians(theta[1]));
+    float rot_yY = rot_xY;
+    float rot_yZ = rot_xZ*cos(radians(theta[1])) - rot_xX*sin(radians(theta[1]));
+    //--------------------------------------------------
+
+    //---------around z axis---------------------------
+    float rot_zX = rot_yX*cos(radians(theta[2])) - rot_yY*sin(radians(theta[2]));
+    float rot_zY = rot_yX*sin(radians(theta[2])) + rot_yY*cos(radians(theta[2]));
+    float rot_zZ = rot_yZ;
+    //--------------------------------------------------
+
+    vector final_coord = vector(-rot_zX, -rot_zY, -rot_zZ);
+
+    return final_coord;
+}
+
+float ggx_dist(vector NdotH, float roughness)
+{
+    float a = roughness*roughness;
+    float a2 = a*a;
+    float denom = NdotH * NdotH * (a2-1.0) + 1.0;
+    denom = M_PI * denom * denom;
+
+    return a2/max(denom, 0.00000001);
+}
+
+shader direction_from_euler
+(
+    vector light_rot = vector(0.0, 0.0, 0.0),
+    vector light_pos = vector(0.0),
+    float diffuse_weight = 0.8, // diffuse weight
+    color Cd = color(1.0), // diffuse color
+    color Ld = color(1.0), //light color
+    float specular_weight = 1.0,
+    float roughness = 0.2,
+    float cosine_power = 20.00,
+
+    float harsh_pow = 0.1,
+    float spec_harsh_pow = 1.0,
+    float outline_ang = 80.0,
+    color outline_color = color(0),
+    color shadow_color = color(1),
+    output color out = color(1,0,0)
+)
+{
+
+    vector light_dir_vec = normalize(get_dir_vec(light_rot));
+    light_dir_vec = (light_dir_vec);
+    vector light_pos_vec = normalize(light_pos-P);
+    float shadow = 0.0;
+
+    int DoTrace = trace (P, light_dir_vec+light_pos_vec) ;
+    if (DoTrace)
+    {
+        shadow = 1.0;
+    }
+    else
+    {
+        shadow = 0.0;
+    }
+
+    float NdotL = max(0.0, dot(N, light_dir_vec)) * dot(light_dir_vec, light_pos_vec);
+    color diff_comp = NdotL * Cd * Ld; //diffuse component
+
+    vector reflection_vec = light_pos_vec - (2.0*dot(N, light_pos_vec)*N); //reflection vector
+    vector half_vector = normalize(normalize(I)+normalize(light_pos_vec));
+
+    float RdotI = max(0.0, dot(I, reflection_vec)); //specular component
+    // RdotI = pow(RdotI, cosine_power) * dot(light_dir_vec, light_pos_vec);
+
+    float ggx_roughness = ggx_dist(RdotI, roughness) * max(0.0, dot(light_dir_vec, light_pos_vec));
+    // out = ggx_roughness;
+
+    // out = (1-shadow) * ((diff_comp*diffuse_weight) + (ggx_roughness*specular_weight));
+
+    // out = diff_comp;
+
+    //toon--------------------------------------
+    color shadow_final = (1-(shadow*shadow_color));
+    float toon_diff = floor(NdotL/harsh_pow);
+    // if (NdotL<0.2)
+    //     toon_diff *= 0.4;
+    // else if (NdotL<0.4 && NdotL>0.2)
+    //     toon_diff *= 0.6;
+    float toon_fresnel = abs(dot(-I, N));
+    float cosang = cos(radians(outline_ang));
+    color toon_outline = toon_fresnel<cosang?outline_color:color(1.0);
+
+
+    out = toon_outline* shadow_final *((toon_diff*Cd*Ld)+(pow(ggx_roughness, spec_harsh_pow)*specular_weight));
+    // out = 1-diff_comp;
+
+    // out = pow(ggx_roughness, spec_harsh_pow);
+}
