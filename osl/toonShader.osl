@@ -1,4 +1,4 @@
-vector toonShader(vector theta)
+vector get_dir_vec(vector theta)
 {
     vector i_c = vector(0.0, 0.0, -1.0);
     //---------around x axis---------------------------
@@ -34,10 +34,12 @@ float ggx_dist(vector NdotH, float roughness)
     return a2/max(denom, 0.00000001);
 }
 
-shader direction_from_euler
+shader toonShader
 (
     vector light_rot = vector(0.0, 0.0, 0.0),
     vector light_pos = vector(0.0),
+    float light_intensity = 1.0,
+    float light_exposure = 1.0,
     float diffuse_weight = 0.8, // diffuse weight
     color Cd = color(1.0), // diffuse color
     color Ld = color(1.0), //light color
@@ -53,12 +55,13 @@ shader direction_from_euler
     output color out = color(1,0,0)
 )
 {
-
+    float light_dist = abs(length(light_pos));
     vector light_dir_vec = normalize(get_dir_vec(light_rot));
     light_dir_vec = (light_dir_vec);
     vector light_pos_vec = normalize(light_pos-P);
     float shadow = 0.0;
 
+// Probe shadow rays
     int DoTrace = trace (P, light_dir_vec+light_pos_vec) ;
     if (DoTrace)
     {
@@ -68,7 +71,7 @@ shader direction_from_euler
     {
         shadow = 0.0;
     }
-
+//
     float NdotL = max(0.0, dot(N, light_dir_vec)) * dot(light_dir_vec, light_pos_vec);
     color diff_comp = NdotL * Cd * Ld; //diffuse component
 
@@ -96,8 +99,11 @@ shader direction_from_euler
     float cosang = cos(radians(outline_ang));
     color toon_outline = toon_fresnel<cosang?outline_color:color(1.0);
 
+    float light_att = 1.0/(light_dist*light_dist);
+    color total_light = light_intensity*pow(2, light_exposure)*Ld;
 
-    out = toon_outline* shadow_final *((toon_diff*Cd*Ld)+(pow(ggx_roughness, spec_harsh_pow)*specular_weight));
+
+    out = toon_outline * shadow_final * total_light * light_att * ((toon_diff*Cd)+(pow(ggx_roughness, spec_harsh_pow)*specular_weight));
     // out = 1-diff_comp;
 
     // out = pow(ggx_roughness, spec_harsh_pow);
