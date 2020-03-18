@@ -108,3 +108,23 @@ shader toonShader
 
     // out = pow(ggx_roughness, spec_harsh_pow);
 }
+
+
+
+//
+shader zdepth
+(
+    float disp_st = 1.0,
+    vector ob_pos = vector(0.0),
+    float dmax=10,
+    output color col = 0
+)
+{
+    point pCam = transform("common", "camera", P);
+    float s_depth = -pCam[2] / dmax;
+    float a = s_depth-length(P-I);
+
+    vector p_ob = P + (disp_st*normalize(P-ob_pos));
+    vector p_ob_t = transform("object", p_ob);
+    col = p_ob;
+}
